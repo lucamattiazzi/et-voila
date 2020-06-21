@@ -50,8 +50,6 @@ function waitForItPromise(selector: string, timeout?: number): Promise<Node> {
         reject()
       }, timeout)
     }
-    const remove: Remove = () => observer.disconnect()
-    return remove
   })
 }
 
