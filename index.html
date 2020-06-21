@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>My magic test page</title>
+    <meta name="description" content="My magic test page" />
+    <meta name="author" content="Luca Mattiazzi" />
+  </head>
+
+  <body>
+    <div id="button">CLICK ME</div>
+    <script src="dist/index.js"></script>
+    <script>
+      const button = document.getElementById('button')
+      button.onclick = () => {
+        const existing = document.getElementById('newborn')
+        if (existing) return existing.remove()
+        const newElement = document.createElement('div')
+        newElement.id = 'newborn'
+        newElement.innerText = 'ciao!'
+        document.body.appendChild(newElement)
+      }
+    </script>
+  </body>
+</html>
