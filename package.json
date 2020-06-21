@@ -1,9 +1,9 @@
 {
-	"name": "wait-for-it",
+	"name": "et-voila",
 	"version": "0.0.1",
-	"description": "wait for an element to appear, then do something",
+	"description": "Wait for an element to appear, then do something",
 	"license": "MIT",
-	"repository": "lucamattiazzi/wait-for-it",
+	"repository": "lucamattiazzi/et-voila",
 	"author": {
 		"name": "Luca Mattiazzi",
 		"email": "l.d.mattiazzi@gmail.com",
