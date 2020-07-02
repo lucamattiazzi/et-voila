@@ -14,7 +14,7 @@ export function waitForIt(
       for (const possibleNode of Array.from(addedNodes)) {
         const parent = possibleNode.parentElement
         if (!parent) continue
-        for (const node of Array.from(parent.querySelectorAll(selector)) {
+        for (const node of Array.from(parent.querySelectorAll(selector))) {
           callback(node)
         }
       }
