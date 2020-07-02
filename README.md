@@ -1,19 +1,19 @@
 # Et Voila
 
 This small Typescript package allows you to react to the appearance of a node element that is caught by a specific css selector.
-It exports both a callback and a promise based implementation using the same function, simply with overloading.
+It exports both a callback (repeatable) and a promise (once) based implementation.
 
 ## Example
 
 This is a simple example:
 
 ```
-const { waitForIt } = require('et-voila')
+const { waitForItOnce } = require('et-voila')
 
 const element = document.createElement('span')
 element.id = 'appearable-element'
 
-waitForIt('span#appearable-element').then((node) => {
+waitForItOnce('span#appearable-element').then((node) => {
   console.log(node)
   node.remove()
 })
@@ -22,11 +22,11 @@ document.body.appendChild(element)
 // node will be logged, then removed
 ```
 
-While this is the promise based implementation, there is also a callback one (with the same name).
+While this is the promise based implementation, there is also a callback one named `waitForIt`.
 
 ## API
 
-### waitForIt (promise)
+### waitForItOnce (promise)
 
 `(selector: string, timeout?: number) => Promise<Node>`
 
@@ -44,7 +44,7 @@ Timeout after which the promise will fail and reject. This will also stop the li
 
 ### waitForIt (callback)
 
-`(selector: string, callback: (Node, Error) => any, timeout?: number) => Remove`
+`(selector: string, callback: (Node, Error) => any, repeatable: boolean = false, timeout?: number) => Remove`
 
 #### selector
 
@@ -57,6 +57,12 @@ The css selector to identify how to recognize the expected node.
 Type: `(Node, Error) => any`
 
 When an element that can be identified by this selector appears in the DOM, this callback will be called with the node as first parameter.
+
+#### repeatable
+
+Type: `boolean` (default = `false`)
+
+Flags to set if the callback should be called each time the element appears.
 
 #### timeout
 

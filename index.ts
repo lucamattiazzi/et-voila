@@ -1,11 +1,12 @@
 type Callback = (element?: Node, error?: Error) => any
 type Remove = () => void
 
-function isCallback(variable?: number | Callback): variable is Callback {
-  return variable && typeof variable === 'function'
-}
-
-function waitForItCb(selector: string, callback: Callback, timeout?: number): Remove {
+export function waitForIt(
+  selector: string,
+  callback: Callback,
+  repeatable: boolean = false,
+  timeout?: number,
+): Remove {
   const observer = new MutationObserver(records => {
     for (const record of records) {
       const { addedNodes } = record
@@ -21,7 +22,7 @@ function waitForItCb(selector: string, callback: Callback, timeout?: number): Re
   observer.observe(document.body, { childList: true, attributes: true, subtree: true })
   if (timeout) {
     setTimeout(() => {
-      observer.disconnect()
+      !repeatable && observer.disconnect()
       callback(null, new Error('Timeout'))
     }, timeout)
   }
@@ -29,7 +30,7 @@ function waitForItCb(selector: string, callback: Callback, timeout?: number): Re
   return remove
 }
 
-function waitForItPromise(selector: string, timeout?: number): Promise<Node> {
+export function waitForItOnce(selector: string, timeout?: number): Promise<Node> {
   return new Promise((resolve, reject) => {
     const observer = new MutationObserver(records => {
       for (const record of records) {
@@ -51,15 +52,4 @@ function waitForItPromise(selector: string, timeout?: number): Promise<Node> {
       }, timeout)
     }
   })
-}
-
-export function waitForIt(selector: string, timeout?: number): Promise<Node>
-export function waitForIt(selector: string, callback: Callback, timeout?: number): Remove
-export function waitForIt(
-  selector: string,
-  callback?: Callback | number,
-  timeout?: number,
-): Remove | Promise<Node> {
-  if (isCallback(callback)) return waitForItCb(selector, callback, timeout)
-  return waitForItPromise(selector, callback)
 }
