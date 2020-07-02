@@ -1,6 +1,6 @@
 {
 	"name": "et-voila",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"description": "Wait for an element to appear, then do something",
 	"license": "MIT",
 	"repository": "lucamattiazzi/et-voila",

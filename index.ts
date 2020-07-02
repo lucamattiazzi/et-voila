@@ -11,11 +11,12 @@ export function waitForIt(
     for (const record of records) {
       const { addedNodes } = record
       if (!addedNodes || addedNodes.length === 0) continue
-      for (const node of Array.from(addedNodes)) {
-        const parent = node.parentElement
+      for (const possibleNode of Array.from(addedNodes)) {
+        const parent = possibleNode.parentElement
         if (!parent) continue
-        if (!parent.querySelector(selector)) continue
-        callback(node)
+        for (const node of Array.from(parent.querySelectorAll(selector)) {
+          callback(node)
+        }
       }
     }
   })
